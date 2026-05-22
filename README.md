@@ -88,7 +88,7 @@ GEMINI_API_KEY=your_api_key
 - AI Integration in real-world apps
 - Authentication & Security using JWT
 - Backend Architecture
-- Resume parsing and AI workflows
+- Resume parsing and AI workflows.
 
 ---
 
@@ -103,4 +103,4 @@ GEMINI_API_KEY=your_api_key
 
 ## 👨‍💻 Author
 
-Prince Poswal
+Prince Poswal 
