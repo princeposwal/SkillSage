@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const moongoose = require('mongoose');
 
 
@@ -128,7 +129,11 @@ const interviewReportSchema = new moongoose.Schema({
     technicalQuestions : [technicalQuestionSchema],
     behavioralQuestions : [behavioralQuestionSchema],
     skillGaps : [skillGapSchema],
-    preparationPlan : [preparationPlanSchema]
+    preparationPlan : [preparationPlanSchema],
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"users"
+    }
 },{
     timestamps : true
 })
