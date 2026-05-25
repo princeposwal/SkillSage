@@ -1,7 +1,7 @@
 //He have created this protected file because without this anyone can access our homepage even without login , after creating this he must first login then only can access .
 
 import { useAuth } from "../hooks/useAuth"
-import { Navigate} from "react-router"
+import { Navigate} from "react-router-dom"
 
 const Protected = ({children}) => {
     const {user,loading} = useAuth();
