@@ -1,7 +1,7 @@
 //The work oh hook layer is to maintain the flow and showing functionalities like loading screen to user .
 
 import { useContext,useEffect } from "react"
-import { AuthContext } from "../auth.context"
+import { AuthContext } from "../auth.context.api.js"
 import { login,register,logout,getMe} from "../services/auth.api"
 
 export const useAuth = () => {

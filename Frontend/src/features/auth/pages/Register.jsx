@@ -1,6 +1,6 @@
 //during registration we need username , email, password, but on login we only need email and password.
 
-import {useNavigate,Link} from 'react-router'
+import {useNavigate,Link} from 'react-router-dom'
 import { useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
 
