@@ -59,7 +59,7 @@ const RoadMapDay = ({ day }) => (
 // ── Main Component ────────────────────────────────────────────────────────────
 const Interview = () => {
     const [ activeNav, setActiveNav ] = useState('technical')
-    const { report, getReportById, loading, getResumePdf } = useInterview()
+    const { report, getReportById, loading, resumeLoading, getResumePdf } = useInterview()
     const { interviewId } = useParams()
 
     useEffect(() => {
@@ -82,9 +82,18 @@ const Interview = () => {
         report.matchScore >= 80 ? 'score--high' :
             report.matchScore >= 60 ? 'score--mid' : 'score--low'
 
+    const matchLevelText = 
+        report.matchScore >= 80 ? 'Strong' :
+            report.matchScore >= 60 ? 'Medium' : 'Low'
+
 
     return (
         <div className='interview-page'>
+            {resumeLoading && (
+                <main className='loading-screen' style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 9999 }}>
+                    <h1>Downloading Resume...</h1>
+                </main>
+            )}
             <div className='interview-layout'>
 
                 {/* ── Left Nav ── */}
@@ -169,7 +178,9 @@ const Interview = () => {
                             <span className='match-score__value'>{report.matchScore}</span>
                             <span className='match-score__pct'>%</span>
                         </div>
-                        <p className='match-score__sub'>Strong match for this role</p>
+                        <p className={`match-score__sub ${scoreColor}`}>
+                            {matchLevelText} match for this role
+                        </p>
                     </div>
 
                     <div className='sidebar-divider' />
