@@ -58,7 +58,7 @@ async function registerUserController(req,res){
 
 /**
  * @name loginUserController
- * @description login a user, expects email and password in the request body.
+ * @description login a user, expects email and password in the request body
  * @access Public
  */
 
