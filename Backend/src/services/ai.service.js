@@ -166,6 +166,7 @@ const browser = await puppeteer.launch({
     "--disable-dev-shm-usage",
   ],
 });
+  console.log("Chrome path:", puppeteer.executablePath());
   const page = await browser.newPage();
   await page.setContent(htmlContent, { waitUntil: "networkidle0" });
 
