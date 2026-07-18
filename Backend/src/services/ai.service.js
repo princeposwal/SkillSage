@@ -1,5 +1,6 @@
 const { GoogleGenAI } = require("@google/genai");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GOOGLE_GENAI_API_KEY,
@@ -156,17 +157,16 @@ async function generateInterviewReport({
 }
 
 async function generatePdfFromHtml(htmlContent) {
-  // Explicitly launching in headless mode to guarantee stability across environments
-const browser = await puppeteer.launch({
-  executablePath: puppeteer.executablePath(),
-  headless: true,
-  args: [
-    "--no-sandbox",
-    "--disable-setuid-sandbox",
-    "--disable-dev-shm-usage",
-  ],
-});
-  console.log("Chrome path:", puppeteer.executablePath());
+  const executablePath = await chromium.executablePath();
+
+  console.log("Chrome path:", executablePath);
+
+  const browser = await puppeteer.launch({
+    executablePath,
+    args: chromium.args,
+    headless: true,
+  });
+
   const page = await browser.newPage();
   await page.setContent(htmlContent, { waitUntil: "networkidle0" });
 
@@ -181,10 +181,8 @@ const browser = await puppeteer.launch({
   });
 
   await browser.close();
-
   return pdfBuffer;
 }
-
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
   const prompt = `Generate resume for a candidate with the following details:
                         Resume: ${resume}
