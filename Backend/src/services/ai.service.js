@@ -157,7 +157,7 @@ async function generateInterviewReport({
 }
 
 async function generatePdfFromHtml(htmlContent) {
-  const executablePath = await chromium.executablePath();
+  const executablePath = await chromium.executablePath;
 
   console.log("Chrome path:", executablePath);
 
@@ -168,7 +168,10 @@ async function generatePdfFromHtml(htmlContent) {
   });
 
   const page = await browser.newPage();
-  await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+
+  await page.setContent(htmlContent, {
+    waitUntil: "networkidle0",
+  });
 
   const pdfBuffer = await page.pdf({
     format: "A4",
@@ -181,6 +184,7 @@ async function generatePdfFromHtml(htmlContent) {
   });
 
   await browser.close();
+
   return pdfBuffer;
 }
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
