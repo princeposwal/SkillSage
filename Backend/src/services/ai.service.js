@@ -157,14 +157,15 @@ async function generateInterviewReport({
 
 async function generatePdfFromHtml(htmlContent) {
   // Explicitly launching in headless mode to guarantee stability across environments
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-    ],
-  });
+const browser = await puppeteer.launch({
+  executablePath: puppeteer.executablePath(),
+  headless: true,
+  args: [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+  ],
+});
   const page = await browser.newPage();
   await page.setContent(htmlContent, { waitUntil: "networkidle0" });
 
