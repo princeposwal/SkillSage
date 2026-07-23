@@ -157,35 +157,41 @@ async function generateInterviewReport({
 }
 
 async function generatePdfFromHtml(htmlContent) {
-  const executablePath = await chromium.executablePath;
+    try {
+        console.log("Generating PDF...");
 
-  console.log("Chrome path:", executablePath);
+        const executablePath = await chromium.executablePath();
+        console.log("Executable:", executablePath);
 
-  const browser = await puppeteer.launch({
-    executablePath,
-    args: chromium.args,
-    headless: true,
-  });
+        const browser = await puppeteer.launch({
+            executablePath,
+            args: chromium.args,
+            headless: true,
+        });
 
-  const page = await browser.newPage();
+        console.log("Browser launched");
 
-  await page.setContent(htmlContent, {
-    waitUntil: "networkidle0",
-  });
+        const page = await browser.newPage();
 
-  const pdfBuffer = await page.pdf({
-    format: "A4",
-    margin: {
-      top: "20mm",
-      bottom: "20mm",
-      left: "15mm",
-      right: "15mm",
-    },
-  });
+        await page.setContent(htmlContent, {
+            waitUntil: "networkidle0",
+        });
 
-  await browser.close();
+        console.log("Content loaded");
 
-  return pdfBuffer;
+        const pdfBuffer = await page.pdf({
+            format: "A4",
+        });
+
+        console.log("PDF generated");
+
+        await browser.close();
+
+        return pdfBuffer;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 }
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
   const prompt = `Generate resume for a candidate with the following details:
