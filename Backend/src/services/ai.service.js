@@ -2,8 +2,8 @@ const { GoogleGenAI } = require("@google/genai");
 const puppeteer = require("puppeteer-core");
 const { default: chromium } = require("@sparticuz/chromium");
 
-console.log("Static methods:", Object.getOwnPropertyNames(Chromium));
-console.log("Prototype methods:", Object.getOwnPropertyNames(Chromium.prototype));
+console.log("Static methods:", Object.getOwnPropertyNames(chromium));
+console.log("Prototype methods:", Object.getOwnPropertyNames(chromium.prototype));
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GOOGLE_GENAI_API_KEY,
