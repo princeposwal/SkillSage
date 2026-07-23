@@ -159,6 +159,8 @@ async function generateInterviewReport({
 async function generatePdfFromHtml(htmlContent) {
     try {
         console.log("Generating PDF...");
+        console.log("Chromium export:", chromium);
+        console.log("Keys:", Object.keys(chromium));
 
         const executablePath = await chromium.executablePath();
         console.log("Executable:", executablePath);
